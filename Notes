@@ -1,0 +1,15 @@
+
+
+
+- Want notions of isomorphism
+- maybe add group theorems as *facts* instead of re-*proving*
+	- can assist alloy by automatically introducing these facts
+- State-transition puzzles like hamiltonian paths through group
+
+- Build other groups or graphs from a group:
+	- subgroup lattices
+	- Cayley graphs, cycle graphs, etc
+	- quotient groups
+- Might want to customize Alloy's viz
+- Maybe make external GUI to Alloy
+
