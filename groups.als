@@ -1,30 +1,60 @@
 
-sig Elem {}
 
-abstract sig Structure {
-	G: set Elem,
-	rel: G -> G -> one G
-}{ rel.G = G->G }
+sig Elem {
+	rel: Elem -> one Elem
+}{
+	-- total
+	rel.Elem = Elem
+}
+one sig Id extends Elem {}
 
-sig Group extends Structure {
-	id: one G
-} {
-	-- TODO: rewrite with relational logic
-	//id.rel in iden and (univ->id)<:rel in iden
-
+fact {
 	-- identity
-	all x: G | rel[id][x] = x and rel[x][id] = x
+	all x: Elem | rel[Id][x] = x and rel[x][Id] = x
 	-- associativity
-	all x,y,z: G | rel[rel[x][y]][z] = rel[x][rel[y][z]]
+	all x,y,z: Elem | rel[rel[x][y]][z] = rel[x][rel[y][z]]
 	-- inverse
-	all x: G | some inv: G | rel[x][inv] = id and rel[inv][x] = id
+	all x: Elem | some inv: Elem | rel[x][inv] = Id and rel[inv][x] = Id
 }
 
-//pred 
+--------
 
-
-
-fact neaten {
-	Group.G = Elem		-- all Elems used
+fun closure(gen: set Elem): set Elem {
+	Id.*(gen.rel)
 }
-run {} for exactly 1 Group, 2 Elem
+pred generator(gen: set Elem) {
+	closure[gen] = Elem
+}
+pred gen1 {		-- aka cyclic
+	some c: Elem | generator[c]
+}
+pred gen2 {
+	some disj c1,c2: Elem | generator[c1+c2]
+}
+pred gen3 {
+	some disj c1,c2,c3: Elem | generator[c1+c2+c3]
+}
+
+--------
+
+run {} for exactly 6 Elem
+run Gen1 { gen1 } for exactly 6 Elem
+run Gen2 { gen2 and not gen1 } for exactly 6 Elem
+run Gen3 { gen3 and not gen2 } for exactly 8 Elem
+run D6 {
+	some disj s,r: Elem-Id {
+		rel[s][s] = Id
+		rel[r][rel[r][r]] = Id
+	}
+} for exactly 6 Elem
+
+
+
+
+
+
+
+
+
+
+
