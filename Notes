@@ -1,8 +1,9 @@
 
 
 
+- multiple groups
 * first isomorphism theorem
-	- multiple groups
+	
 
 - speed up everything by only considering generator elements
 	- describe graphs as {Elem -> Gen -> Elem} instead of {Elem -> Elem -> Elem}
