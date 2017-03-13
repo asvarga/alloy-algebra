@@ -1,9 +1,13 @@
 
 
 
+* first isomorphism theorem
+	- multiple groups
+
 - speed up everything by only considering generator elements
 	- describe graphs as {Elem -> Gen -> Elem} instead of {Elem -> Elem -> Elem}
 		- much smaller
+- optimize by representing products of groups (ex: Z/2Z^8)
 - Want notions of isomorphism
 - how can group theory be used to *help* Alloy?
 	- have (proven) facts that say if a relation satisfies the group axioms -> it also satisfies xyz

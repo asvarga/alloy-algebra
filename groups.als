@@ -1,4 +1,7 @@
 
+open util/ternary
+
+--------
 
 sig Elem {
 	rel: Elem -> one Elem
@@ -10,11 +13,13 @@ one sig Id extends Elem {}
 
 fact {
 	-- identity
-	all x: Elem | rel[Id][x] = x and rel[x][Id] = x
+	//all x: Elem | rel[Id][x] = x and rel[x][Id] = x
+	Id.rel in iden and Id.(flip12[rel]) in iden
 	-- associativity
 	all x,y,z: Elem | rel[rel[x][y]][z] = rel[x][rel[y][z]]
 	-- inverse
-	all x: Elem | some inv: Elem | rel[x][inv] = Id and rel[inv][x] = Id
+	//all x: Elem | some inv: Elem | rel[x][inv] = Id and rel[inv][x] = Id
+	(rel.Id).Elem = Elem and Elem.(rel.Id) = Elem
 }
 
 --------
@@ -37,7 +42,7 @@ pred gen3 {
 
 --------
 
-run {} for exactly 6 Elem
+run Some { some Elem } for exactly 6 Elem
 run Gen1 { gen1 } for exactly 6 Elem
 run Gen2 { gen2 and not gen1 } for exactly 6 Elem
 run Gen3 { gen3 and not gen2 } for exactly 8 Elem
