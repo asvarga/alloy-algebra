@@ -57,8 +57,7 @@ pred homomorphic(g: Group, h: Group) {
 }
 pred isomorphism(g: Group, h: Group, f: g.E -> one h.E) {
 	homomorphism[g, h, f]
-	univ.f = h.E	-- onto
-	//homomorphism[h, g, ~f]
+	homomorphism[h, g, ~f]
 }
 pred isomorphic(g: Group, h: Group) {
 	some f: g.E -> one h.E | isomorphism[g, h, f]
@@ -83,6 +82,7 @@ assert isoTheorem1 {
 		-- 2. The image of f is a subgroup of H
 		subgroup[h, f[g.E]]
 		-- 3. The image of f is isomorphic to the quotient group G / ker(f)
+		// TODO: doesn't work because f[g.E] isn't a Group
 	//	all q: Group | quotient[g, f.(h.id), q] implies isomorphic[f[g.E], q]
 	}
 }
@@ -101,10 +101,10 @@ run Gen1 { gen1[Gr] } for exactly 6 Elem, 1 Group
 run Gen2 { gen2[Gr] and not gen1[Gr] } for exactly 6 Elem, 1 Group
 run Gen3 { gen3[Gr] and not gen2[Gr] } for exactly 8 Elem, 1 Group
 
-run Sub { some n: set Gr.E | subgroup[Gr, n] } for exactly 4 Elem, 1 Group
-run Norm { some n: set Gr.E | normalSub[Gr, n] } for exactly 4 Elem, 1 Group
-run Hom { some g: Group-Gr | homomorphic[g, Gr] } for exactly 4 Elem, 2 Group
-run Iso { some g: Group-Gr | isomorphic[g, Gr] } for exactly 4 Elem, 2 Group
+run Sub { some n: set Gr.E | subgroup[Gr, n] } for exactly 4 BElem, 0 SElem, 1 Group
+run Norm { some n: set Gr.E | normalSub[Gr, n] } for exactly 4 BElem, 0 SElem, 1 Group
+run Hom { some g: Group-Gr | homomorphic[Gr, g] } for exactly 4 BElem, 0 SElem, 2 Group
+run Iso { some g: Group-Gr | isomorphic[Gr, g] } for exactly 4 BElem, 0 SElem, 2 Group
 run Quo {
 	Gr.E = BElem
 	some n: set Gr.E, q: Group-Gr {

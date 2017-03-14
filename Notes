@@ -1,5 +1,8 @@
 
 
+
+- return to using actual groups instead of subsets of the original group's elements
+	- need to be able to build a group given the original and the subset
 * first isomorphism theorem
 	
 
