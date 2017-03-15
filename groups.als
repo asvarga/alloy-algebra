@@ -57,17 +57,20 @@ pred homomorphic(g: Group, h: Group) {
 }
 pred isomorphism(g: Group, h: Group, f: g.E -> one h.E) {
 	homomorphism[g, h, f]
-	h.E in f.(h.E) and g.E in (g.E).f		-- bijection
+	f in (g.E one->one h.E)			-- bijection
 }
 pred isomorphic(g: Group, h: Group) {
 	some f: g.E -> one h.E | isomorphism[g, h, f]
 }
 
+--------
+
 pred quotient(g: Group, n: Group, q: Group) {
 	normalSub[n, g]
-	-- q's elements are the cosets on n
+	-- q's elements are the cosets of n
 	all x: g.E | some s: q.E | s.E = g.rel[x][n.E]
-	all s: q.E | some x: g.E | s.E = g.rel[x][n.E]	// TODO: this is contained below
+	//all s: q.E | some x: g.E | s.E = g.rel[x][n.E]	-- this is expressed below
+
 	-- (xN)(yN) = (xy)N
 	all s,t: q.E | some x,y: g.E {
 		s.E = g.rel[x][n.E]
@@ -77,19 +80,25 @@ pred quotient(g: Group, n: Group, q: Group) {
 }
 
 --------
-/*
+
 assert isoTheorem1 {
-	all g: Group, h: Group, f: g.E -> one h.E | homomorphism[g, h, f] implies {
+	all g, h, ker, img, q: Group, f: g.E -> one h.E | {
+		homomorphism[g, h, f]	-- f is an iso from g -> h
+		ker.E = f.(h.id)		-- ker is the kernel of f
+		img.E = f[g.E]			-- img is the image of f
+		quotient[g, ker, q]		-- q = g/ker
+	} implies {
 		-- 1. The kernel of f is a normal subgroup of G
-		normalSub[g, f.(h.id)]
+		normalSub[ker, g]
 		-- 2. The image of f is a subgroup of H
-		subgroup[h, f[g.E]]
+		subgroup[img, h]
 		-- 3. The image of f is isomorphic to the quotient group G / ker(f)
-		// TODO: doesn't work because f[g.E] isn't a Group
-	//	all q: Group | quotient[g, f.(h.id), q] implies isomorphic[f[g.E], q]
+		isomorphic[img, q]
+		-- In particular, if f is surjective then H is isomorphic to G / ker(f)
+		h.E in (g.E).f implies isomorphic[h, q]
 	}
 }
-check isoTheorem1*/
+check isoTheorem1
 
 --------
 
@@ -112,14 +121,9 @@ run Norm { some  n: Group-Gr | normalSub[n, Gr] } for exactly 4 BElem, 0 SElem, 
 run Hom { some h: Group-Gr | homomorphic[Gr, h] } for exactly 2 BElem, 0 SElem, 2 Group
 run Iso { some g: Group-Gr | isomorphic[Gr, g] } for exactly 4 BElem, 0 SElem, 2 Group
 run Quo {
-	//Gr.E = BElem
+	Gr.E = BElem
 	some n,q: Group-Gr | quotient[Gr, n, q]
-	/*some n: set Gr.E, q: Group-Gr {
-		q.E = SElem
-		normalSub[Gr, n]
-		quotient[Gr, n, q]
-	}*/
-} for exactly 4 BElem, 2 SElem, 3 Group
+} for exactly 6 BElem, 2 SElem, 3 Group
 
 
 
