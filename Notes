@@ -2,6 +2,7 @@
 
 
 - return to using actual groups instead of subsets of the original group's elements
+	- all graphs need needed must exist at once (g, h, kernel, image, quotient, ?)
 	- need to be able to build a group given the original and the subset
 * first isomorphism theorem
 	

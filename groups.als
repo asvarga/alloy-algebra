@@ -41,13 +41,13 @@ pred gen3(g: Group) {
 
 --------
 
-pred subgroup(g: Group, n: set g.E) {
-	some n
-	g.rel[n][n] in n
+pred subgroup(s: Group, g: Group) {
+	s.E in g.E
+	s.rel in g.rel
 }
-pred normalSub(g: Group, n: set g.E) {
-	subgroup[g, n]
-	all x: g.E | g.rel[x][n] = g.rel[n][x]
+pred normalSub(n: Group, g: Group) {
+	subgroup[n, g]
+	all x: g.E | g.rel[x][n.E] = g.rel[n.E][x]
 }
 pred homomorphism(g: Group, h: Group, f: g.E -> one h.E) {
 	all u,v: g.E | f[g.rel[u][v]] = h.rel[f[u]][f[v]]
@@ -57,24 +57,27 @@ pred homomorphic(g: Group, h: Group) {
 }
 pred isomorphism(g: Group, h: Group, f: g.E -> one h.E) {
 	homomorphism[g, h, f]
-	homomorphism[h, g, ~f]
+	h.E in f.(h.E) and g.E in (g.E).f		-- bijection
 }
 pred isomorphic(g: Group, h: Group) {
 	some f: g.E -> one h.E | isomorphism[g, h, f]
 }
 
-pred quotient(g: Group, n: set g.E, q: Group) {
-	q.E = {s: SElem | some x: g.E | g.rel[x][n] = s.E}	-- q.E is cosets
-	some f: g.E -> one q.E {
-		//univ.f = q.E		-- onto
-		all x: g.E | g.rel[x][n] = f[x].E
-		//all j,k: g.E | f[g.rel[j][k]] = q.rel[f[j]][f[k]]
-		homomorphism[g, q, f]
+pred quotient(g: Group, n: Group, q: Group) {
+	normalSub[n, g]
+	-- q's elements are the cosets on n
+	all x: g.E | some s: q.E | s.E = g.rel[x][n.E]
+	all s: q.E | some x: g.E | s.E = g.rel[x][n.E]	// TODO: this is contained below
+	-- (xN)(yN) = (xy)N
+	all s,t: q.E | some x,y: g.E {
+		s.E = g.rel[x][n.E]
+		t.E = g.rel[y][n.E]
+		(q.rel[s][t]).E = g.rel[ g.rel[x][y] ][n.E]
 	}
 }
 
 --------
-
+/*
 assert isoTheorem1 {
 	all g: Group, h: Group, f: g.E -> one h.E | homomorphism[g, h, f] implies {
 		-- 1. The kernel of f is a normal subgroup of G
@@ -86,11 +89,14 @@ assert isoTheorem1 {
 	//	all q: Group | quotient[g, f.(h.id), q] implies isomorphic[f[g.E], q]
 	}
 }
-check isoTheorem1
+check isoTheorem1*/
 
 --------
 
-fact useAll { Elem in Group.E }	-- all Elems used
+fact neat { 
+	Elem in Group.E				-- all Elems used
+	all g: Group | some g.E		-- no empty groups
+}
 
 -- make dealing with specific Groups neater
 one sig Id extends BElem {}
@@ -101,18 +107,19 @@ run Gen1 { gen1[Gr] } for exactly 6 Elem, 1 Group
 run Gen2 { gen2[Gr] and not gen1[Gr] } for exactly 6 Elem, 1 Group
 run Gen3 { gen3[Gr] and not gen2[Gr] } for exactly 8 Elem, 1 Group
 
-run Sub { some n: set Gr.E | subgroup[Gr, n] } for exactly 4 BElem, 0 SElem, 1 Group
-run Norm { some n: set Gr.E | normalSub[Gr, n] } for exactly 4 BElem, 0 SElem, 1 Group
-run Hom { some g: Group-Gr | homomorphic[Gr, g] } for exactly 4 BElem, 0 SElem, 2 Group
+run Sub { some s: Group-Gr | subgroup[s, Gr] } for exactly 4 BElem, 0 SElem, 2 Group
+run Norm { some  n: Group-Gr | normalSub[n, Gr] } for exactly 4 BElem, 0 SElem, 2 Group
+run Hom { some h: Group-Gr | homomorphic[Gr, h] } for exactly 2 BElem, 0 SElem, 2 Group
 run Iso { some g: Group-Gr | isomorphic[Gr, g] } for exactly 4 BElem, 0 SElem, 2 Group
 run Quo {
-	Gr.E = BElem
-	some n: set Gr.E, q: Group-Gr {
+	//Gr.E = BElem
+	some n,q: Group-Gr | quotient[Gr, n, q]
+	/*some n: set Gr.E, q: Group-Gr {
 		q.E = SElem
 		normalSub[Gr, n]
 		quotient[Gr, n, q]
-	}
-} for exactly 4 BElem, 2 SElem, 2 Group
+	}*/
+} for exactly 4 BElem, 2 SElem, 3 Group
 
 
 
