@@ -85,13 +85,26 @@ pred quotient(g: Group, n: Group, q: Group) {
 	}
 }
 
+-- ker is kernel of g
+pred kernel(g, h, ker: Group, f: g.E -> one h.E) {
+	ker.E = f.(h.id)
+}
+
+-- img is image of g
+pred image(g, img: Group, f: g.E -> one Elem) {
+	img.E = f[g.E]
+	img.id = f[g.id]
+}
+
 --------
 
+-- maybe should assume f is surjective (img == h)
+-- could get rid of h
 assert isoTheorem1 {
 	all g, h, ker, img, q: Group, f: g.E -> one h.E | {
 		homomorphism[g, h, f]	-- f is an iso from g -> h
-		ker.E = f.(h.id)		-- ker is the kernel of frun {} for exactly 1 Group, 2 Elem
-		img.E = f[g.E]			-- img is the image of f
+		kernel[g, h, ker, f]	-- ker is the kernel of f
+		image[g, img, f]		-- img is the image of f
 		quotient[g, ker, q]		-- q = g/ker
 	} implies {
 		-- 1. The kernel of f is a normal subgroup of G
@@ -104,7 +117,7 @@ assert isoTheorem1 {
 		//h.E in (g.E).f implies isomorphic[h, q]
 	}
 }
-check isoTheorem1 for 4
+check isoTheorem1 for 4 but 5 Group
 
 --------
 
