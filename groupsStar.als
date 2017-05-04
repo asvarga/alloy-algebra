@@ -1,4 +1,7 @@
 
+// groups rewritten to work with alloy*
+
+
 open util/ternary
 
 --------
@@ -10,9 +13,12 @@ sig SElem extends Elem { E: set BElem }
 fact { all disj x,y: SElem | x.E != y.E }
 sig Group {
 	E: set Elem,
-	id: E,
-	rel: E -> E -> one E
-}{
+	id: Elem,
+	rel: Elem -> Elem -> Elem,
+} {
+	-- fix for alloy*
+	id in E
+	rel in E -> E -> one E
 	-- identity
 	id.rel in iden and id.(flip12[rel]) in iden
 	-- associativity
@@ -20,8 +26,6 @@ sig Group {
 	-- inverse
 	(rel.id).E = E and E.(rel.id) = E
 }
-
-run {} for exactly 1 Group, 2 Elem
 
 --------
 
@@ -86,7 +90,7 @@ pred quotient(g: Group, n: Group, q: Group) {
 assert isoTheorem1 {
 	all g, h, ker, img, q: Group, f: g.E -> one h.E | {
 		homomorphism[g, h, f]	-- f is an iso from g -> h
-		ker.E = f.(h.id)		-- ker is the kernel of f
+		ker.E = f.(h.id)		-- ker is the kernel of frun {} for exactly 1 Group, 2 Elem
 		img.E = f[g.E]			-- img is the image of f
 		quotient[g, ker, q]		-- q = g/ker
 	} implies {
@@ -100,7 +104,7 @@ assert isoTheorem1 {
 		//h.E in (g.E).f implies isomorphic[h, q]
 	}
 }
-check isoTheorem1
+check isoTheorem1 for 4
 
 --------
 
@@ -109,7 +113,7 @@ fact neat {
 	all g: Group | some g.E		-- no empty groups
 }
 
--- make dealing with specific Groups neater
+/*-- make dealing with specific Groups neater
 one sig Id extends BElem {}
 one sig Gr extends Group {} { id = Id }
 
@@ -125,7 +129,12 @@ run Iso { some g: Group-Gr | isomorphic[Gr, g] } for exactly 4 BElem, 0 SElem, 2
 run Quo {
 	Gr.E = BElem
 	some n,q: Group-Gr | quotient[Gr, n, q]
-} for exactly 6 BElem, 2 SElem, 3 Group
+} for exactly 6 BElem, 2 SElem, 3 Group*/
+
+
+
+
+
 
 
 
