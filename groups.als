@@ -95,7 +95,7 @@ assert isoTheorem1 {
 		-- 3. The image of f is isomorphic to the quotient group G / ker(f)
 		isomorphic[img, q]
 		-- In particular, if f is surjective then H is isomorphic to G / ker(f)
-		h.E in (g.E).f implies isomorphic[h, q]
+		//h.E in (g.E).f implies isomorphic[h, q]
 	}
 }
 check isoTheorem1
@@ -117,7 +117,7 @@ run Gen2 { gen2[Gr] and not gen1[Gr] } for exactly 6 Elem, 1 Group
 run Gen3 { gen3[Gr] and not gen2[Gr] } for exactly 8 Elem, 1 Group
 
 run Sub { some s: Group-Gr | subgroup[s, Gr] } for exactly 4 BElem, 0 SElem, 2 Group
-run Norm { some  n: Group-Gr | normalSub[n, Gr] } for exactly 4 BElem, 0 SElem, 2 Group
+run Norm { some n: Group-Gr | normalSub[n, Gr] } for exactly 4 BElem, 0 SElem, 2 Group
 run Hom { some h: Group-Gr | homomorphic[Gr, h] } for exactly 2 BElem, 0 SElem, 2 Group
 run Iso { some g: Group-Gr | isomorphic[Gr, g] } for exactly 4 BElem, 0 SElem, 2 Group
 run Quo {

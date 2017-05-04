@@ -1,28 +1,27 @@
 
 
 
-- return to using actual groups instead of subsets of the original group's elements
-	- all graphs need needed must exist at once (g, h, kernel, image, quotient, ?)
-	- need to be able to build a group given the original and the subset
 * first isomorphism theorem
-	
+Alloy* : http://alloy.mit.edu/alloy/hola/	
 
-- speed up everything by only considering generator elements
-	- describe graphs as {Elem -> Gen -> Elem} instead of {Elem -> Elem -> Elem}
-		- much smaller
-- optimize by representing products of groups (ex: Z/2Z^8)
-- Want notions of isomorphism
+- optimizations
+	- only considering generator elements
+		- describe graphs as {Elem -> Gen -> Elem} instead of {Elem -> Elem -> Elem}, for smaller relations
+	- gruples: tuples representing a products of groups, ex: (Z/2Z)^8
+
 - how can group theory be used to *help* Alloy?
 	- have (proven) facts that say if a relation satisfies the group axioms -> it also satisfies xyz
+	* hard-wire group-specific symmetry breaking, like in util/ordering
 
+- visualization
+	- Build descriptive graphs from a group:
+		- subgroup lattices
+		- Cayley graphs, cycle graphs, etc
+	- Might want to customize Alloy's viz
+	- Maybe make external GUI to Alloy
 
-- Build other groups or graphs from a group:
-	- subgroup lattices
-	- Cayley graphs, cycle graphs, etc
-	- quotient groups
-- Might want to customize Alloy's viz
-- Maybe make external GUI to Alloy
-- State-transition puzzles like hamiltonian paths through group
+- usage examples
+	- State-transition puzzles like hamiltonian paths through group
 
 
 
