@@ -1,0 +1,22 @@
+
+goal: group<T> for any type
+	- also group<set<T>> etc
+
+problem: parameterization is just syntactic
+	- can have groups of different types
+	- but can't have isomorphisms between groups of different types
+
+attempted solution: have an unrestricted group<Any> base class that restricted versions extend
+problem: scope explosion (6 or 20 million clauses)
+
+final solution?: composition instead of inheritance
+	- all Groups can only have Elems
+	- Elems can optionally have anything attached as data
+
+
+
+
+
+
+
+
