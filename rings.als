@@ -5,7 +5,7 @@ open groups[T] as GT				-- Groups of Ts
 
 --------
 
-sig Ring extends GT/Group{
+abstract sig Ring extends GT/Group{
 	uno: T,
 	mul: T -> T -> T
 } {

@@ -1,8 +1,9 @@
 
--- GST's element type should be Sets of GT's element type
-module quotient[GT, GST]
+module quotient
 
 open groups							-- Groups (of Any)
+open sets							-- Sets (of Any)
+
 // open groupsOf[T] as GT				-- Groups of T
 // open sets[T] as ST					-- Sets of T
 // open groupsOf[ST/Set] as GST			-- Groups of Sets of T
@@ -14,7 +15,7 @@ open groups							-- Groups (of Any)
 
 --------
 
-pred quotient(g, n: GT, q: GST) {
+pred quotient(g, n, q: Group) {
 	normalSub[n, g]
 	-- q's elements are the cosets of n
 	all x: g.E | some s: q.E | s.e = g.add[x][n.E]

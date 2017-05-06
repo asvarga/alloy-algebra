@@ -28,7 +28,7 @@ pred eq(g1,g2: Group) {
 	g1.id = g2.id
 	g1.add = g2.add
 }
-pred unique { all disj x,y: Group | not eq[x, y] }
+pred allDisj { all disj x,y: Group | not eq[x, y] }
 
 --------
 
