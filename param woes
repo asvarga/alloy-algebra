@@ -13,6 +13,12 @@ final solution?: composition instead of inheritance
 	- all Groups can only have Elems
 	- Elems can optionally have anything attached as data
 
+- i've come to realize that the efficiency of alloy programs is directly negatively correlated with code quality. 
+- loosely speaking, good code is extensible and you can do a lot of things with it, and alloy works by trying every possible thing you could do with the code. 
+- so it kinda makes sense
+- having an extensible module and then restraining it in a using module only works so well, because you still get all the original clauses from the first module
+- getting around this would require high-level reduction stage before the reduction to CNF
+
 
 
 
