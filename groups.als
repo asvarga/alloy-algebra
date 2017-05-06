@@ -1,14 +1,14 @@
 
-module groups[T]
+module groups
 
 open util/ternary
 
 --------
 
 sig Group {
-	E: set T,
-	id: T,
-	add: T -> T -> T,
+	E: set univ,
+	id: univ,
+	add: univ -> univ -> univ,
 } {
 	-- fix for alloy*
 	id in E
@@ -75,7 +75,7 @@ pred isomorphic(g: Group, h: Group) {
 pred kernel(g, h, ker: Group, f: g.E -> one h.E) {
 	ker.E = f.(h.id)
 }
-pred image(g, img: Group, f: g.E -> one T) {
+pred image(g, img: Group, f: g.E -> one univ) {
 	img.E = f[g.E]
 	img.id = f[g.id]
 }

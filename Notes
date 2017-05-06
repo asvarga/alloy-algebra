@@ -4,6 +4,8 @@
 * having types broke isomorphisms between groups of different types
 	- maybe have each Group<T> be an extension of Group<Any>
 		- each version of Group just gets different constraints on E
+	- provide projection function from group type to type
+		- see if list does this
 	- maybe make a module for functional relations so they can be parameterized over (like with Sets)
 
 
