@@ -5,7 +5,7 @@ open util/ternary
 
 --------
 
-sig Group {
+abstract sig Group {
 	E: set univ,
 	id: univ,
 	add: univ -> univ -> univ,
@@ -20,6 +20,8 @@ sig Group {
 	-- inverse
 	(add.id).E = E and E.(add.id) = E
 }
+
+pred groupOf(g: Group, T: set univ) { g.E in T }
 
 pred eq(g1,g2: Group) { 
 	g1.E = g2.E
