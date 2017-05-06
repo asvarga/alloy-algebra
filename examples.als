@@ -6,7 +6,7 @@ open quotient[Elem]
 
 --------
 
-abstract sig Elem {}
+sig Elem {}
 
 fact neat { 
 	Elem in GE/Group.E				-- all Elems used
