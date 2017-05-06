@@ -1,17 +1,19 @@
 
 open groups as G					-- Groups (of Any)
+open sets as S						-- Sets (of Any)
+
 open groupsOf[Elem] as GE			-- Groups of Elems
-open sets[Elem] as SE				-- Sets of Elems
+open setsOf[Elem] as SE				-- Sets of Elems
 open groupsOf[SE/Set] as GSE		-- Groups of Sets of Elems
-open quotient[Elem]
+open quotient
 
 --------
 
-abstract sig Elem {}
+sig Elem {}
 
 fact neat { 
 	Elem in GE/Group.E				-- all Elems used
-	Set in GSE/Group.E				-- all Sets used
+	S/Set in GSE/Group.E			-- all Sets used
 	SE/unique
 }
 
@@ -31,4 +33,4 @@ run Quo {
 		g.E = Elem
 		quotient[g, n, q]
 	}
-} for exactly 6 Elem, 2 Set, 2 GE/Group, 1 GSE/Group, 3 G/Group
+} for 0 but exactly 6 Elem, 2 S/Set, 3 G/Group

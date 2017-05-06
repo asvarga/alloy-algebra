@@ -5,7 +5,7 @@ open util/ternary
 
 --------
 
-sig Group {
+abstract sig Group {
 	E: set univ,
 	id: univ,
 	add: univ -> univ -> univ,
