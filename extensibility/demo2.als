@@ -38,7 +38,8 @@ I don't know what such a phase would do because I don't know how Alloy works,
 but one can imagine basic optimizations at the level of relations or sets.
 
 Allowing coding practices and patterns from standard programming experience
-to carry over to Alloy will be helpful in reducing the overhead of modelling.
+to carry over to Alloy will be helpful in reducing the overhead of modelling
+and encourage modular and extensible code. 
 */
 
 --------
