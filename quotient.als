@@ -1,22 +1,20 @@
 
-module quotient[T]
+module quotient
 
-open groups[T] as GE				-- Groups of Elems
-open sets[T] as SE					-- Sets of Elems
-open groups[SE/Set] as GSE			-- Groups of Sets of Elems
+open groups as G
 
 --------
 
-pred quotient(g: GE/Group, n: GE/Group, q: GSE/Group) {
+pred quotient(g, n, q: Group) {
 	normalSub[n, g]
 	-- q's elements are the cosets of n
-	all x: g.E | some s: q.E | s.E = g.add[x][n.E]
+	all x: g.E | some s: q.E | s.e = g.add[x][n.E]
 
 	-- (xN)(yN) = (xy)N
 	all s,t: q.E | some x,y: g.E {
-		s.E = g.add[x][n.E]
-		t.E = g.add[y][n.E]
-		(q.add[s][t]).E = g.add[ g.add[x][y] ][n.E]
+		s.e = g.add[x][n.E]
+		t.e = g.add[y][n.E]
+		(q.add[s][t]).e = g.add[ g.add[x][y] ][n.E]
 	}
 }
 
