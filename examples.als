@@ -1,5 +1,6 @@
 
 open groups as G
+open rings as R
 open quotient
 
 --------
@@ -26,3 +27,7 @@ run Quo {
 		quotient[g, n, q]
 	}
 } for 0 but exactly 6 Ind, exactly 2 Set, exactly 3 Group
+
+--------
+
+run Some { some Ring.E } for 0 but exactly 5 Ind, exactly 1 Ring

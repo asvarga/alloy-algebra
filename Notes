@@ -1,12 +1,5 @@
 
 
-
-* having types broke isomorphisms between groups of different types
-	- maybe have each Group<T> be an extension of Group<Any>
-		- each version of Group just gets different constraints on E
-	- maybe make a module for functional relations so they can be parameterized over (like with Sets)
-
-
 - optimizations
 	- only considering generator elements
 		- describe graphs as {Elem -> Gen -> Elem} instead of {Elem -> Elem -> Elem}, for smaller relations

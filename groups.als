@@ -10,8 +10,8 @@ sig Ind extends Elem {}
 sig Set extends Elem { e: set Ind }
 sig Group {
 	E: set Elem,
-	id: Elem,
-	add: Elem -> Elem -> Elem,
+	id: Elem,						-- "E" doesn't work in Alloy*
+	add: Elem -> Elem -> Elem,		-- "E -> E -> one E" doesn't work in Alloy*
 } {
 	-- fix for alloy*
 	id in E

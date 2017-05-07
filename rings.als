@@ -1,13 +1,13 @@
 
-module rings[T]
+module rings
 
-open groups[T] as GT				-- Groups of Ts
+open groups as G		
 
 --------
 
-sig Ring extends GT/Group{
-	uno: T,
-	mul: T -> T -> T
+sig Ring extends Group{
+	uno: Elem,								-- "E" doesn't work in Alloy*
+	mul: Elem -> Elem -> Elem				-- "E -> E -> one E" doesn't work in Alloy*
 } {
 	-- *abelian* group under addition
 	all x,y: E | add[x][y] = add[y][x]		// TODO: use relations?
@@ -23,9 +23,11 @@ sig Ring extends GT/Group{
 	all x,y,z: E | mul[add[y][z]][x] = add[mul[y][x]][mul[z][x]]	// TODO: use relations?
 }
 
-pred eq(r1,r2: Ring) { 
-	GT/eq[r1, r2]
+pred ringEq(r1,r2: Ring) { 
+	groupEq[r1, r2]
 	r1.uno = r2.uno
 	r1.mul = r2.mul
 }
-pred unique { all disj x,y: Ring | not this/eq[x, y] }
+pred disjRings { all disj x,y: Ring | not ringEq[x, y] }
+
+run {}
