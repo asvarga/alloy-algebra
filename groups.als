@@ -28,6 +28,7 @@ sig GS extends Group {} { E in Set }*/
 
 --------
 
+pred allElemsUsed { Elem = Group.E }
 pred setEq(s1,s2: Set) { 
 	s1.e = s2.e
 }

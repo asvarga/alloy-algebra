@@ -5,11 +5,7 @@ open quotient
 
 --------
 
-fact neat { 
-	Elem = Group.E				-- all Elems used
-}
-
---------
+fact { allElemsUsed }
 
 run Some { some Group.E } for 0 but exactly 4 Ind, 1 Group
 run Gen1 { gen1[Group] } for 0 but exactly 6 Ind, 1 Group
@@ -26,7 +22,7 @@ run Quo {
 		q.E = Set
 		quotient[g, n, q]
 	}
-} for 0 but exactly 6 Ind, exactly 2 Set, exactly 3 Group
+} for 0 but exactly 6 Ind, exactly 2 Set, exactly 3 Group, exactly 0 Ring
 
 --------
 

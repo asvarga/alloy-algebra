@@ -22,7 +22,7 @@ run {}
 
 -- maybe should assume f is surjective (img == h)
 -- could get rid of h
-assert isoTheorem1 {
+pred isoTheorem1 {
 	disjSets implies
 	all g, h, ker, img, q: Group, f: g.E -> one h.E | {
 		homomorphism[g, h, f]	-- f is an iso from g -> h
@@ -40,5 +40,8 @@ assert isoTheorem1 {
 		//h.E in (g.E).f implies isomorphic[h, q]
 	}
 }
-check isoTheorem1 for 4
+// fact { isoTheorem1 }
+assert isoTheorem1 { isoTheorem1 }
+check isoTheorem1 for 4 but 5 Group
+
 

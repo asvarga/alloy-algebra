@@ -8,10 +8,14 @@
 
 - how can group theory be used to *help* Alloy?
 	- have (proven) facts that say if a relation satisfies the group axioms -> it also satisfies xyz
-	* hard-wire group-specific symmetry breaking, like in util/ordering
+	- hard-wire group-specific symmetry breaking, like in util/ordering
 	* maybe just adding it as a fact will work?
 
-* rings
+* more iso theorems
+
+* ring examples
+	* ring properties/quotients
+	* ring iso theorems
 
 - visualization
 	- Build descriptive graphs from a group:
