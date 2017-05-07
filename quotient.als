@@ -22,8 +22,9 @@ run {}
 
 -- maybe should assume f is surjective (img == h)
 -- could get rid of h
-/*assert isoTheorem1 {
-	all g, h, ker, img: GE/Group, q: GSE/Group, f: g.E -> one h.E | {
+assert isoTheorem1 {
+	disjSets implies
+	all g, h, ker, img, q: Group, f: g.E -> one h.E | {
 		homomorphism[g, h, f]	-- f is an iso from g -> h
 		kernel[g, h, ker, f]	-- ker is the kernel of f
 		image[g, img, f]		-- img is the image of f
@@ -40,4 +41,4 @@ run {}
 	}
 }
 check isoTheorem1 for 4
-*/
+

@@ -25,4 +25,4 @@ run Quo {
 		q.E = Set
 		quotient[g, n, q]
 	}
-} for exactly 6 Ind, 2 Set, 3 Group
+} for 0 but exactly 6 Ind, exactly 2 Set, exactly 3 Group
