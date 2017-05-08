@@ -5,6 +5,15 @@ open groups as G
 
 --------
 
+sig Set extends Elem { e: set Ind }
+
+pred setEq(s1,s2: Set) { 
+	s1.e = s2.e
+}
+pred disjSets { all disj x,y: Set | not setEq[x, y] }
+
+--------
+
 pred quotient(g, n, q: Group) {
 	normalSub[n, g]
 	-- q's elements are the cosets of n
@@ -43,5 +52,14 @@ pred isoTheorem1 {
 // fact { isoTheorem1 }
 assert isoTheorem1 { isoTheorem1 }
 check isoTheorem1 for 4 but 5 Group
+
+
+
+
+
+
+
+
+
 
 

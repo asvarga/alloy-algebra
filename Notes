@@ -4,16 +4,16 @@
 	- only considering generator elements
 		- describe graphs as {Elem -> Gen -> Elem} instead of {Elem -> Elem -> Elem}, for smaller relations
 	- gruples: tuples representing a products of groups, ex: (Z/2Z)^8
-	* product groups
+	* product groups (3)
 
 - how can group theory be used to *help* Alloy?
 	- have (proven) facts that say if a relation satisfies the group axioms -> it also satisfies xyz
 	- hard-wire group-specific symmetry breaking, like in util/ordering
-	* maybe just adding it as a fact will work?
+	- maybe just adding it as a fact will work?
 
-* more iso theorems
+* more iso theorems (1)
 
-* ring examples
+* ring examples	(2)
 	* ring properties/quotients
 	* ring iso theorems
 

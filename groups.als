@@ -7,7 +7,6 @@ open util/ternary
 
 abstract sig Elem {}
 sig Ind extends Elem {}
-sig Set extends Elem { e: set Ind }
 sig Group {
 	E: set Elem,
 	id: Elem,						-- "E" doesn't work in Alloy*
@@ -23,16 +22,10 @@ sig Group {
 	-- inverse
 	(add.id).E = E and E.(add.id) = E
 }
-/*sig GI extends Group {} { E in Ind }
-sig GS extends Group {} { E in Set }*/
 
 --------
 
 pred allElemsUsed { Elem = Group.E }
-pred setEq(s1,s2: Set) { 
-	s1.e = s2.e
-}
-pred disjSets { all disj x,y: Set | not setEq[x, y] }
 
 pred groupEq(g1,g2: Group) { 
 	g1.E = g2.E
