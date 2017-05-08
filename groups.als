@@ -54,25 +54,25 @@ pred gen3(g: Group) {
 
 --------
 
-pred subgroup(s: Group, g: Group) {
+pred subgroup(s, g: Group) {
 	s.E in g.E
 	s.add in g.add
 }
-pred normalSub(n: Group, g: Group) {
+pred normalSub(n, g: Group) {
 	subgroup[n, g]
 	all x: g.E | g.add[x][n.E] = g.add[n.E][x]
 }
-pred homomorphism(g: Group, h: Group, f: g.E -> one h.E) {
+pred homomorphism(g, h: Group, f: g.E -> one h.E) {
 	all u,v: g.E | f[g.add[u][v]] = h.add[f[u]][f[v]]
 }
-pred homomorphic(g: Group, h: Group) {
+pred homomorphic(g, h: Group) {
 	some f: g.E -> one h.E | homomorphism[g, h, f]
 }
-pred isomorphism(g: Group, h: Group, f: g.E -> one h.E) {
+pred isomorphism(g, h: Group, f: g.E -> one h.E) {
 	homomorphism[g, h, f]
 	f in (g.E one->one h.E)			-- bijection
 }
-pred isomorphic(g: Group, h: Group) {
+pred isomorphic(g, h: Group) {
 	some f: g.E -> one h.E | isomorphism[g, h, f]
 }
 
@@ -84,6 +84,19 @@ pred kernel(g, h, ker: Group, f: g.E -> one h.E) {
 pred image(g, img: Group, f: g.E -> one Elem) {
 	img.E = f[g.E]
 	img.id = f[g.id]
+}
+
+--------
+
+pred product(g, s, t, st: Group) {
+	s.E in g.E
+	t.E in g.E
+	st.E = g.add[s.E][t.E]
+}
+pred intersection(g, s, t, st: Group) {
+	s.E in g.E
+	t.E in g.E
+	st.E = s.E & t.E
 }
 
 --------

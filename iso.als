@@ -29,8 +29,8 @@ pred quotient(g, n, q: Group) {
 
 run {}
 
--- maybe should assume f is surjective (img == h)
--- could get rid of h
+--------
+
 pred isoTheorem1 {
 	disjSets implies
 	all g, h, ker, img, q: Group, f: g.E -> one h.E | {
@@ -52,6 +52,34 @@ pred isoTheorem1 {
 // fact { isoTheorem1 }
 assert isoTheorem1 { isoTheorem1 }
 check isoTheorem1 for 4 but 5 Group
+
+
+-- NOT WORKING
+-- evaluating "isomorphic[$isoTheorem2_q1, $isoTheorem2_q2]" gives:
+-- 		Fatal error: Unknown exception occurred: java.lang.NullPointerException
+pred isoTheorem2 {
+	disjSets implies
+	all g, s, n, sn, sin, q1, q2: Group | {
+		subgroup[s, g]			
+		normalSub[n, g]
+		product[g, s, n, sn]	
+		intersection[g, s, n, sin]	
+		quotient[sn, n, q1]	
+		quotient[s, sin, q2]
+	} implies {
+		-- 1. The product SN is a subgroup of G
+		subgroup[sn, g]
+		-- 2. The intersection S n N is a normal subgroup of S
+		normalSub[sin, s]
+		-- 3. The quotient groups (SN)/N and S/(SnN) are isomorphic
+		isomorphic[q1, q2]
+	}
+}
+// fact { isoTheorem2 }
+assert isoTheorem2 { isoTheorem2 }
+check isoTheorem2 for 6 but 7 Group
+
+
 
 
 
