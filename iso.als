@@ -1,5 +1,5 @@
 
-module quotient
+module iso
 
 open groups as G
 
@@ -14,79 +14,74 @@ pred disjSets { all disj x,y: Set | not setEq[x, y] }
 
 --------
 
-pred quotient(g, n, q: Group) {
-	normalSub[n, g]
+pred quotient(g: Group, n: set g.E, q: Group) {
+	normalSub[g, n]
 	-- q's elements are the cosets of n
-	all x: g.E | some s: q.E | s.e = g.add[x][n.E]
+	//all x: g.E | some s: q.E | s.e = g.add[x][n]
+
+	all x,y: g.E {
+		some s,t: q.E {
+			s.e = g.add[x][n]
+			t.e = g.add[y][n]
+			(q.add[s][t]).e = g.add[ g.add[x][y] ][n]
+		}
+	}
+
+	all s,t: q.E {
+		some x,y: g.E {
+			s.e = g.add[x][n]
+			t.e = g.add[y][n]
+			(q.add[s][t]).e = g.add[ g.add[x][y] ][n]
+		}
+	}
 
 	-- (xN)(yN) = (xy)N
-	all s,t: q.E | some x,y: g.E {
-		s.e = g.add[x][n.E]
-		t.e = g.add[y][n.E]
-		(q.add[s][t]).e = g.add[ g.add[x][y] ][n.E]
-	}
+	/*all s,t: q.E | some x,y: g.E {
+		s.e = g.add[x][n]
+		t.e = g.add[y][n]
+		(q.add[s][t]).e = g.add[ g.add[x][y] ][n]
+	}*/
 }
-
-run {}
 
 --------
 
-pred isoTheorem1 {
+assert isoTheorem1a {
 	disjSets implies
-	all g, h, ker, img, q: Group, f: g.E -> one h.E | {
-		homomorphism[g, h, f]	-- f is an iso from g -> h
-		kernel[g, h, ker, f]	-- ker is the kernel of f
-		image[g, img, f]		-- img is the image of f
-		quotient[g, ker, q]		-- q = g/ker
+	all g, h, q: Group, f: g.E -> one h.E | {
+		homomorphism[g, g.E, h, h.E, f]			-- f is a hom from g -> h
+		quotient[g, kernel[g, h, f], q]			-- g/ker = q
 	} implies {
-		-- 1. The kernel of f is a normal subgroup of G
-		normalSub[ker, g]
-		-- 2. The image of f is a subgroup of H
-		subgroup[img, h]
-		-- 3. The image of f is isomorphic to the quotient group G / ker(f)
-		isomorphic[img, q]
-		-- In particular, if f is surjective then H is isomorphic to G / ker(f)
-		//h.E in (g.E).f implies isomorphic[h, q]
+		-- The kernel of f is a normal subgroup of G
+		normalSub[g, kernel[g, h, f]]
 	}
 }
-// fact { isoTheorem1 }
-assert isoTheorem1 { isoTheorem1 }
-check isoTheorem1 for 4 but 5 Group
+check isoTheorem1a for 0 but exactly 3 Group, 6 Ind, 6 Set
 
 
--- NOT WORKING
--- evaluating "isomorphic[$isoTheorem2_q1, $isoTheorem2_q2]" gives:
--- 		Fatal error: Unknown exception occurred: java.lang.NullPointerException
-pred isoTheorem2 {
+assert isoTheorem1b {
 	disjSets implies
-	all g, s, n, sn, sin, q1, q2: Group | {
-		subgroup[s, g]			
-		normalSub[n, g]
-		product[g, s, n, sn]	
-		intersection[g, s, n, sin]	
-		quotient[sn, n, q1]	
-		quotient[s, sin, q2]
+	all g, h, q: Group, f: g.E -> one h.E | {
+		homomorphism[g, g.E, h, h.E, f]			-- f is a hom from g -> h
+		quotient[g, kernel[g, h, f], q]			-- g/ker = q
 	} implies {
-		-- 1. The product SN is a subgroup of G
-		subgroup[sn, g]
-		-- 2. The intersection S n N is a normal subgroup of S
-		normalSub[sin, s]
-		-- 3. The quotient groups (SN)/N and S/(SnN) are isomorphic
-		isomorphic[q1, q2]
+		-- The image of f is a subgroup of H
+		subgroup[h, image[g, h, f]]
 	}
 }
-// fact { isoTheorem2 }
-assert isoTheorem2 { isoTheorem2 }
-check isoTheorem2 for 6 but 7 Group
+check isoTheorem1b for 0 but exactly 3 Group, 4 Ind, 4 Set
 
 
-
-
-
-
-
-
-
+assert isoTheorem1c {
+	disjSets implies
+	all g, h, q: Group, f: g.E -> one h.E | {
+		homomorphism[g, g.E, h, h.E, f]			-- f is a hom from g -> h
+		quotient[g, kernel[g, h, f], q]			-- g/ker = q
+	} implies {
+		-- The image of f is isomorphic to the quotient group G / ker(f)
+		isomorphic[h, image[g, h, f], q, q.E]
+	}
+}
+check isoTheorem1c for 0 but exactly 3 Group, 4 Ind, 4 Set
 
 
 

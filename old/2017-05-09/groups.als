@@ -54,54 +54,36 @@ pred gen3(g: Group) {
 
 --------
 
-/*pred subgroup(s, g: Group) {
+pred subgroup(s, g: Group) {
 	s.E in g.E
 	s.add in g.add
 }
 pred normalSub(n, g: Group) {
 	subgroup[n, g]
 	all x: g.E | g.add[x][n.E] = g.add[n.E][x]
-}*/
-
-pred subgroup(g: Group, s: set g.E) {
-	g.add[s][s] in s		-- s is closed in g
 }
-pred normalSub(g: Group, n: set g.E) {
-	subgroup[g, n]
-	g.add[g.E][n] = g.add[n][g.E]		-- gn = ng
+pred homomorphism(g, h: Group, f: g.E -> one h.E) {
+	all u,v: g.E | f[g.add[u][v]] = h.add[f[u]][f[v]]
 }
-
---------
-
-pred homomorphism(g: Group, gs: set g.E, h: Group, hs: set h.E, f: gs -> one hs) {
-	all u,v: gs | f[g.add[u][v]] = h.add[f[u]][f[v]]
+pred homomorphic(g, h: Group) {
+	some f: g.E -> one h.E | homomorphism[g, h, f]
 }
-pred homomorphic(g: Group, gs: set g.E, h: Group, hs: set h.E) {
-	some f: gs -> one hs | homomorphism[g, gs, h, hs, f]
+pred isomorphism(g, h: Group, f: g.E -> one h.E) {
+	homomorphism[g, h, f]
+	f in (g.E one->one h.E)			-- bijection
 }
-pred isomorphism(g: Group, gs: set g.E, h: Group, hs: set h.E, f: gs one->one hs) {
-	homomorphism[g, gs, h, hs, f]
-	// f in (gs one->one hs)			-- bijection
-}
-pred isomorphic(g: Group, gs: set g.E, h: Group, hs: set h.E) {
-	some f: gs one->one hs | isomorphism[g, gs, h, hs, f]
+pred isomorphic(g, h: Group) {
+	some f: g.E -> one h.E | isomorphism[g, h, f]
 }
 
 --------
 
-/*pred kernel(g, h, ker: Group, f: g.E -> one h.E) {
+pred kernel(g, h, ker: Group, f: g.E -> one h.E) {
 	ker.E = f.(h.id)
 }
 pred image(g, img: Group, f: g.E -> one Elem) {
 	img.E = f[g.E]
 	img.id = f[g.id]
-}*/
-
-fun kernel(g, h: Group, f: g.E -> one h.E): set g.E {
-	f.(h.id)
-}
-fun image(g, h: Group, f: g.E -> one h.E): set h.E {
-	f[g.E]
 }
 
 --------
