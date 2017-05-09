@@ -30,4 +30,32 @@ pred ringEq(r1,r2: Ring) {
 }
 pred disjRings { all disj x,y: Ring | not ringEq[x, y] }
 
+--------
+
+pred subring(S, R: Ring) {
+	subgroup[S, R]
+	S.mul in R.mul
+}
+pred leftIdeal(I, R: Ring) {
+	subring[I, R]
+	R.add[R.E][I.E] in I.E
+}
+pred rightIdeal(I, R: Ring) {
+	subring[I, R]
+	R.add[I.E][R.E] in I.E
+}
+pred ideal(I, R: Ring) {
+	leftIdeal[I, R]
+	rightIdeal[I, R]
+}
+
+--------
+
 run {}
+
+
+
+
+
+
+
