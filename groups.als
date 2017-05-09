@@ -81,9 +81,10 @@ pred isomorphic(g, h: Group) {
 pred kernel(g, h, ker: Group, f: g.E -> one h.E) {
 	ker.E = f.(h.id)
 }
-pred image(g, img: Group, f: g.E -> one Elem) {
+pred image(g, h, img: Group, f: g.E -> one h.E) {
 	img.E = f[g.E]
 	img.id = f[g.id]
+	subgroup[img, h]
 }
 
 --------

@@ -36,7 +36,7 @@ pred isoTheorem1 {
 	all g, h, ker, img, q: Group, f: g.E -> one h.E | {
 		homomorphism[g, h, f]	-- f is an iso from g -> h
 		kernel[g, h, ker, f]	-- ker is the kernel of f
-		image[g, img, f]		-- img is the image of f
+		image[g, h, img, f]		-- img is the image of f
 		quotient[g, ker, q]		-- q = g/ker
 	} implies {
 		-- 1. The kernel of f is a normal subgroup of G
@@ -51,7 +51,7 @@ pred isoTheorem1 {
 }
 // fact { isoTheorem1 }
 assert isoTheorem1 { isoTheorem1 }
-check isoTheorem1 for 4 but 5 Group
+check isoTheorem1 for 0 but 5 Group, 4 Ind, 4 Set
 
 
 -- NOT WORKING
