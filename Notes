@@ -1,5 +1,10 @@
 
 
+
+- no group sigs, just relations w/ set and id implied???
+
+
+
 - optimizations
 	- only considering generator elements
 		- describe graphs as {Elem -> Gen -> Elem} instead of {Elem -> Elem -> Elem}, for smaller relations

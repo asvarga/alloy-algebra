@@ -15,10 +15,17 @@ pred disjSets { all disj x,y: Set | not setEq[x, y] }
 --------
 
 pred quotient(g: Group, n: set g.E, q: Group) {
-	normalSub[g, n]
+	// normalSub[g, n]
 	-- q's elements are the cosets of n
 	//all x: g.E | some s: q.E | s.e = g.add[x][n]
+	-- (xN)(yN) = (xy)N
+	/*all s,t: q.E | some x,y: g.E {
+		s.e = g.add[x][n]
+		t.e = g.add[y][n]
+		(q.add[s][t]).e = g.add[ g.add[x][y] ][n]
+	}*/
 
+/*
 	all x,y: g.E {
 		some s,t: q.E {
 			s.e = g.add[x][n]
@@ -33,14 +40,19 @@ pred quotient(g: Group, n: set g.E, q: Group) {
 			t.e = g.add[y][n]
 			(q.add[s][t]).e = g.add[ g.add[x][y] ][n]
 		}
-	}
+	}*/
+
+
+	normalSub[g, n]
+	-- q's elements are the cosets of n
+	all x: g.E | some s: q.E | s.e = g.add[x][n]
 
 	-- (xN)(yN) = (xy)N
-	/*all s,t: q.E | some x,y: g.E {
+	all s,t: q.E | some x,y: g.E {
 		s.e = g.add[x][n]
 		t.e = g.add[y][n]
 		(q.add[s][t]).e = g.add[ g.add[x][y] ][n]
-	}*/
+	}
 }
 
 --------

@@ -68,7 +68,8 @@ pred subgroup(g: Group, s: set g.E) {
 }
 pred normalSub(g: Group, n: set g.E) {
 	subgroup[g, n]
-	g.add[g.E][n] = g.add[n][g.E]		-- gn = ng
+	// g.add[g.E][n] = g.add[n][g.E]		-- gn = ng
+	all x: g.E | g.add[x][n] = g.add[n][x]
 }
 
 --------
